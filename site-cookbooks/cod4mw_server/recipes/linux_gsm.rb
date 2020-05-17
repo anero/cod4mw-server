@@ -9,7 +9,7 @@ bash 'Add i386 architecture to dpkg' do
 end
 
 # Install dependencies
-apt_package %w(mailutils postfix curl wget file tar bzip2 gzip unzip bsdmainutils python util-linux ca-certificates binutils bc jq tmux netcat-traditional lib32gcc1 libstdc++6 libstdc++6:i386 libstdc++5:i386 lib32stdc++6)
+apt_package %w(mailutils postfix curl wget file tar bzip2 gzip unzip bsdmainutils python util-linux ca-certificates binutils bc jq tmux netcat lib32gcc1 libstdc++6 libstdc++6:i386 libstdc++5:i386 lib32stdc++6)
 
 # Create cod4server
 user 'cod4server' do
