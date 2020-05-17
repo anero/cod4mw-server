@@ -28,16 +28,8 @@ bash 'Install Cod4MW dedicated server' do
   user 'cod4server'
 end
 
-# Start cod4server on init
-template '/lib/systemd/system/cod4server.service' do
-  source 'cod4server.service'
-  owner 'root'
-  group 'root'
-  action :create_if_missing
-end
-
 # Copy overriden config for server
-cookbook_file 'lgsm/config-lgsm/cod4server/cod4server.cfg' do
+cookbook_file '/home/cod4server/lgsm/config-lgsm/cod4server/cod4server.cfg' do
   owner 'cod4server'
   group 'cod4server'
   source 'cod4server.cfg'
