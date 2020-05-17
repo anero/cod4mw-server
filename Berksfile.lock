@@ -1,0 +1,11 @@
+DEPENDENCIES
+  ruby_build
+  user
+
+GRAPH
+  git (10.0.0)
+  ruby_build (1.2.0)
+    git (>= 0.0.0)
+    yum-epel (>= 0.0.0)
+  user (0.7.0)
+  yum-epel (3.3.0)

@@ -1,0 +1,16 @@
+[Unit]
+Description=CoD4Server
+# start us only once the network and logging subsystems are available
+After=syslog.target network.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/cod4server
+ExecStart=/home/cod4server/cod4server start
+User=cod4server
+Group=cod4server
+UMask=0002
+RemainAfterExit=true
+
+[Install]
+WantedBy=multi-user.target

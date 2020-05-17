@@ -1,0 +1,60 @@
+{
+  "builders": [
+    {
+      "access_key": "{{user `aws_access_key`}}",
+      "ami_name": "CoD 4 MW {{timestamp}}",
+      "associate_public_ip_address": true,
+      "ebs_optimized": true,
+      "ena_support": true,
+      "iam_instance_profile": "packer-builder",
+      "instance_type": "c5.large",
+      "launch_block_device_mappings": [
+        {
+          "delete_on_termination": true,
+          "device_name": "/dev/sda1",
+          "encrypted": true,
+          "volume_size": 32,
+          "volume_type": "gp2"
+        }
+      ],
+      "region": "sa-east-1",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "source_ami": "ami-077d5d3682940b34a",
+      "ssh_interface": "public_ip",
+      "ssh_username": "ubuntu",
+      "subnet_id": "subnet-dac0f6bd",
+      "tags": {
+        "created_at": "{{isotime}}",
+        "parent_ami": "ami-077d5d3682940b34a",
+        "managed_by": "peluchero",
+        "game": "cod4mw"
+      },
+      "type": "amazon-ebs",
+      "vpc_id": "vpc-c66dd1a1"
+    }
+  ],
+  "post-processors": [],
+  "provisioners": [
+    {
+      "inline": [
+        "sudo apt-get -y install curl"
+      ],
+      "type": "shell"
+    },
+    {
+      "cookbook_paths": [
+        "cookbooks",
+        "site-cookbooks"
+      ],
+      "run_list": [
+        "cod4mw_server"
+      ],
+      "type": "chef-solo",
+      "version": "14.12.9"
+    }
+  ],
+  "variables": {
+    "aws_access_key": "",
+    "aws_secret_key": ""
+  }
+}
