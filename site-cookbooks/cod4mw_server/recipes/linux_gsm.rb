@@ -19,13 +19,26 @@ user 'cod4server' do
 end
 
 # Install dedicated server
-
-# Esta fallando esto por un error con Cloudflare en el sitio donde se hostean los juegos.
-# Como workaround se puede bajar manualmente el juego desde el sitio del desarrollador de lgsm:
-# https://dl.gn-gaming.de/cod4/cod4x18_1790_lnxded.tar.xz
-bash 'Install Cod4MW dedicated server' do
+bash 'Install LGSM' do
   code <<-CODE
   wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh cod4server
+  CODE
+  cwd '/home/cod4server'
+  user 'cod4server'
+end
+
+# Esta fallando esto por un error con Cloudflare en el sitio donde se hostean los juegos.
+# Como workaround se puede bajar manualmente el juego desde el sitio del desarrollador de lgsm.
+directory '/home/cod4server/lgsm/tmp/' do
+  owner 'cod4server'
+  group 'cod4server'
+  mode '0755'
+  action :create
+end
+
+bash 'Download Cod4MW server' do
+  code <<-CODE
+  wget -O /home/cod4server/lgsm/tmp/cod4x18_1790_lnxded.tar.xz https://dl.gn-gaming.de/cod4/cod4x18_1790_lnxded.tar.xz
   ./cod4server auto-install
   CODE
   cwd '/home/cod4server'
