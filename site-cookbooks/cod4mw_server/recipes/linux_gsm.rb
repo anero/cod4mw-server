@@ -50,6 +50,6 @@ cookbook_file '/home/cod4server/lgsm/config-lgsm/cod4server/cod4server.cfg' do
   owner 'cod4server'
   group 'cod4server'
   source 'cod4server.cfg'
-  mode '0504'
+  mode '0644'
   action :create
 end
