@@ -8,7 +8,7 @@ bash 'Add i386 architecture to dpkg' do
   user 'root'
 end
 
-# Install dependencies
+# Install LGSM dependencies
 apt_package %w(mailutils postfix curl wget file tar bzip2 gzip unzip bsdmainutils python util-linux ca-certificates binutils bc jq tmux netcat lib32gcc1 libstdc++6 libstdc++6:i386 libstdc++5:i386 lib32stdc++6)
 
 # Create cod4server
@@ -27,18 +27,8 @@ bash 'Install LGSM' do
   user 'cod4server'
 end
 
-# Esta fallando esto por un error con Cloudflare en el sitio donde se hostean los juegos.
-# Como workaround se puede bajar manualmente el juego desde el sitio del desarrollador de lgsm.
-directory '/home/cod4server/lgsm/tmp/' do
-  owner 'cod4server'
-  group 'cod4server'
-  mode '0755'
-  action :create
-end
-
-bash 'Download Cod4MW server' do
+bash 'Install Cod4MW server' do
   code <<-CODE
-  wget -O /home/cod4server/lgsm/tmp/cod4x18_1790_lnxded.tar.xz https://dl.gn-gaming.de/cod4/cod4x18_1790_lnxded.tar.xz
   ./cod4server auto-install
   CODE
   cwd '/home/cod4server'
