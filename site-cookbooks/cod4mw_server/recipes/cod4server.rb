@@ -32,3 +32,16 @@ bash 'enable cod4server' do
   user 'root'
   environment 'HOME' => '/root', 'USER' => 'root'
 end
+
+# HACK: For whatever reason first cod4server run is crashing, so as a workaround we run the server
+# once so that next time we boot the image the systemd service starts correctly.
+# This assumes cod4server will always crash on first run and thus it doesn't attempt to stop the server
+# (attempting to stop a stopped server fails and makes the AMI build process to fail)
+bash 'First CoD4MW server run' do
+  code <<-CODE
+  ./cod4server start
+  sleep 30
+  CODE
+  cwd '/home/cod4server'
+  user 'cod4server'
+end

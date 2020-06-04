@@ -27,7 +27,7 @@ bash 'Install LGSM' do
   user 'cod4server'
 end
 
-bash 'Install Cod4MW server' do
+bash 'Install CoD4MW server' do
   code <<-CODE
   ./cod4server auto-install
   CODE
